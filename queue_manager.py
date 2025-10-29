@@ -146,7 +146,7 @@ class ComfyUIQueueManager:
 
     def process_single_image(self, image_path: Path, create_comparison: bool = False, comparison_dir: Path = None) -> bool:
         """
-        Process a single image using the ComfyUI batch script
+        Process a single image through ComfyUI
 
         Args:
             image_path (Path): Path to the image to process
@@ -161,7 +161,7 @@ class ComfyUIQueueManager:
             self.current_processing = image_path
             self.stats['current_image_start'] = datetime.now()
 
-            # Build command to run main.py
+            # Build command to run main.py with increased timeout
             cmd = [
                 sys.executable,  # Use same Python interpreter
                 "main.py",
@@ -174,13 +174,26 @@ class ComfyUIQueueManager:
             # Log the command being executed
             logger.debug(f"Executing: {' '.join(cmd)}")
 
-            # Run the command and wait for completion
-            result = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                cwd=Path(__file__).parent  # Run from script directory
-            )
+            # Run the command with increased timeout for model loading scenarios
+            try:
+                result = subprocess.run(
+                    cmd,
+                    capture_output=True,
+                    text=True,
+                    timeout=900,  # 15 minutes timeout (increased from default)
+                    cwd=Path(__file__).parent  # Run from script directory
+                )
+            except subprocess.TimeoutExpired:
+                logger.error(f"❌ Processing timed out after 15 minutes: {image_path.name}")
+                logger.error("This may indicate ComfyUI server issues or very slow model loading")
+                self.failed.append({
+                    'path': image_path,
+                    'error': 'Process timeout (15 minutes)',
+                    'exit_code': -1,
+                    'timestamp': datetime.now()
+                })
+                self.stats['failed_count'] += 1
+                return False
 
             # Process the result
             if result.returncode == 0:

@@ -269,10 +269,14 @@ class ComfyUIBatch:
             else:
                 url = f"http://{self.server_address}/history/{prompt_id}"
 
-            with urllib.request.urlopen(url) as response:
+            # Increase timeout for model loading/unloading scenarios
+            with urllib.request.urlopen(url, timeout=30) as response:
                 return json.loads(response.read().decode())
+        except urllib.error.URLError as e:
+            logger.warning(f"Network error getting history (this is normal during model loading): {e}")
+            return None
         except Exception as e:
-            logger.error(f"Failed to get history: {e}")
+            logger.warning(f"Failed to get history (retrying): {e}")
             return None
 
     def get_images(self, prompt_id, save_dir="output"):
@@ -413,20 +417,75 @@ class ComfyUIBatch:
         prompt_id = queue_result.get('prompt_id')
 
         if wait_for_completion:
-            # Wait for completion
+            # Wait for completion with timeout
             logger.info("Waiting for processing to complete...")
+            timeout_seconds = 600  # 10 minutes timeout per image (increased for model loading)
+            start_time = time.time()
+            consecutive_failures = 0
+            max_consecutive_failures = 30  # Increased to handle model loading/unloading periods
+            check_interval = 2  # Check every 2 seconds instead of 1
+            last_log_time = 0
+
             while True:
-                history = self.get_history(prompt_id)
-                if history and prompt_id in history:
-                    # Check if execution is complete
-                    prompt_data = history[prompt_id]
-                    if prompt_data.get('status', {}).get('status_str') == 'success':
-                        break
-                    elif prompt_data.get('status', {}).get('status_str') == 'error':
-                        logger.error("Processing failed!")
+                current_time = time.time()
+                elapsed_time = current_time - start_time
+
+                # Check for timeout
+                if elapsed_time > timeout_seconds:
+                    logger.error(f"Processing timed out after {timeout_seconds} seconds!")
+                    logger.error("This may indicate the ComfyUI server is unresponsive or the model was unloaded")
+                    if self.ws:
+                        self.ws.close()
+                    return []
+
+                try:
+                    history = self.get_history(prompt_id)
+                    if history and prompt_id in history:
+                        # Reset failure counter on successful API call
+                        consecutive_failures = 0
+
+                        # Check if execution is complete
+                        prompt_data = history[prompt_id]
+                        status = prompt_data.get('status', {})
+                        status_str = status.get('status_str', '')
+
+                        if status_str == 'success':
+                            logger.info(f"Processing completed successfully after {elapsed_time:.1f} seconds")
+                            break
+                        elif status_str == 'error':
+                            logger.error("Processing failed with error status!")
+                            logger.error(f"Error details: {status}")
+                            if self.ws:
+                                self.ws.close()
+                            return []
+                        else:
+                            # Still processing, log progress every 30 seconds
+                            if current_time - last_log_time >= 30:
+                                logger.info(f"Still processing... {elapsed_time:.0f}s elapsed (status: {status_str})")
+                                last_log_time = current_time
+                    else:
+                        # No history yet, which is normal for newly queued prompts or during model loading
+                        if current_time - last_log_time >= 30:  # Log every 30 seconds
+                            if elapsed_time > 60:  # Only log if it's been more than 60 seconds
+                                logger.info(f"Waiting for prompt to start processing... {elapsed_time:.0f}s elapsed (may be loading model)")
+                            last_log_time = current_time
+
+                    consecutive_failures = 0  # Reset on successful API call
+
+                except Exception as e:
+                    consecutive_failures += 1
+                    # Only log warnings for the first few failures and then every 10 failures to reduce spam
+                    if consecutive_failures <= 5 or consecutive_failures % 10 == 0:
+                        logger.warning(f"Failed to get processing status (attempt {consecutive_failures}/{max_consecutive_failures}): {e}")
+
+                    if consecutive_failures >= max_consecutive_failures:
+                        logger.error(f"Too many consecutive API failures ({consecutive_failures}), giving up")
+                        logger.error("This suggests the ComfyUI server may have crashed or become unresponsive")
+                        if self.ws:
+                            self.ws.close()
                         return []
 
-                time.sleep(1)
+                time.sleep(check_interval)
 
             # Close WebSocket
             if self.ws:

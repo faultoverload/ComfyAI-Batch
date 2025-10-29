@@ -16316,3 +16316,68 @@ Progress: 100.0% - Node: 28
 2025-10-23 17:21:33,317 - INFO -   Failed: 0
 2025-10-23 17:21:33,317 - INFO -   Remaining: 298
 2025-10-23 17:21:33,317 - INFO -   Total time: 0h 0m 9s
+2025-10-23 21:08:20,953 - INFO - Queue Manager initialized:
+2025-10-23 21:08:20,953 - INFO -   Input folder: /docker/SwarmUI/Input
+2025-10-23 21:08:20,953 - INFO -   Output folder: /docker/SwarmUI/OutputComfy
+2025-10-23 21:08:20,953 - INFO -   Workflow: workflow.json
+2025-10-23 21:08:20,953 - INFO -   Server: localhost:7801
+2025-10-23 21:08:21,166 - INFO - Found 301 images to process
+2025-10-23 21:08:21,166 - INFO - Built queue with 301 images
+2025-10-23 21:08:21,166 - INFO -   1. 2017-11-11_14-22-15_BbW68fpH8pN.jpg
+2025-10-23 21:08:21,166 - INFO -   2. 2021-10-13_23-17-41_CU_KjIiAl0J_1.jpg
+2025-10-23 21:08:21,166 - INFO -   3. 2021-10-13_23-17-41_CU_KjIiAl0J_2.jpg
+2025-10-23 21:08:21,166 - INFO -   4. 2021-10-13_23-17-41_CU_KjIiAl0J_3.jpg
+2025-10-23 21:08:21,166 - INFO -   5. 2021-10-13_23-17-41_CU_KjIiAl0J_4.jpg
+2025-10-23 21:08:21,166 - INFO -   ... and 296 more images
+2025-10-23 21:08:21,167 - INFO - 🚀 Starting queue processing...
+2025-10-23 21:08:21,167 - INFO - Queue size: 301 images
+2025-10-23 21:08:21,167 - INFO - 📸 Comparison images will be created after each processing
+2025-10-23 21:08:21,167 - INFO - [1/301] Starting: 2017-11-11_14-22-15_BbW68fpH8pN.jpg
+2025-10-23 21:08:21,167 - INFO - Processing: 2017-11-11_14-22-15_BbW68fpH8pN.jpg
+2025-10-23 21:09:14,560 - INFO - ✅ Successfully processed: 2017-11-11_14-22-15_BbW68fpH8pN.jpg
+2025-10-23 21:09:14,561 - INFO -   Generated: Sat13_01429_.png
+2025-10-23 21:09:14,561 - INFO - Creating comparison for 2017-11-11_14-22-15_BbW68fpH8pN.jpg -> Sat13_01429_.png
+2025-10-23 21:09:14,717 - INFO - Created comparison: comparison_2017-11-11_14-22-15_BbW68fpH8pN_Sat13_01429_.jpg
+2025-10-23 21:09:14,717 - INFO -   Comparison saved: comparison_2017-11-11_14-22-15_BbW68fpH8pN_Sat13_01429_.jpg
+2025-10-23 21:09:14,717 - INFO - [1/301] ✅ Completed: 2017-11-11_14-22-15_BbW68fpH8pN.jpg
+2025-10-23 21:09:14,717 - INFO - Progress: 1/301 processed, 0 failed
+2025-10-23 21:09:14,717 - INFO - Time: 0m 53s elapsed, ~267m 45s remaining
+2025-10-23 21:09:16,718 - INFO - [2/301] Starting: 2021-10-13_23-17-41_CU_KjIiAl0J_1.jpg
+2025-10-23 21:09:16,720 - INFO - Processing: 2021-10-13_23-17-41_CU_KjIiAl0J_1.jpg
+2025-10-23 21:09:42,106 - INFO - ✅ Successfully processed: 2021-10-13_23-17-41_CU_KjIiAl0J_1.jpg
+2025-10-23 21:09:42,107 - INFO -   Generated: Sat13_01430_.png
+2025-10-23 21:09:42,107 - INFO - Creating comparison for 2021-10-13_23-17-41_CU_KjIiAl0J_1.jpg -> Sat13_01430_.png
+2025-10-23 21:09:42,206 - INFO - Created comparison: comparison_2021-10-13_23-17-41_CU_KjIiAl0J_1_Sat13_01430_.jpg
+2025-10-23 21:09:42,207 - INFO -   Comparison saved: comparison_2021-10-13_23-17-41_CU_KjIiAl0J_1_Sat13_01430_.jpg
+2025-10-23 21:09:42,207 - INFO - [2/301] ✅ Completed: 2021-10-13_23-17-41_CU_KjIiAl0J_1.jpg
+2025-10-23 21:09:42,207 - INFO - Progress: 2/301 processed, 0 failed
+2025-10-23 21:09:42,207 - INFO - Time: 1m 21s elapsed, ~201m 55s remaining
+2025-10-23 21:09:44,208 - INFO - [3/301] Starting: 2021-10-13_23-17-41_CU_KjIiAl0J_2.jpg
+2025-10-23 21:09:44,208 - INFO - Processing: 2021-10-13_23-17-41_CU_KjIiAl0J_2.jpg
+2025-10-23 21:10:08,427 - INFO - ✅ Successfully processed: 2021-10-13_23-17-41_CU_KjIiAl0J_2.jpg
+2025-10-23 21:10:08,427 - INFO -   Generated: Sat13_01431_.png
+2025-10-23 21:10:08,427 - INFO - Creating comparison for 2021-10-13_23-17-41_CU_KjIiAl0J_2.jpg -> Sat13_01431_.png
+2025-10-23 21:10:08,490 - INFO - Created comparison: comparison_2021-10-13_23-17-41_CU_KjIiAl0J_2_Sat13_01431_.jpg
+2025-10-23 21:10:08,491 - INFO -   Comparison saved: comparison_2021-10-13_23-17-41_CU_KjIiAl0J_2_Sat13_01431_.jpg
+2025-10-23 21:10:08,491 - INFO - [3/301] ✅ Completed: 2021-10-13_23-17-41_CU_KjIiAl0J_2.jpg
+2025-10-23 21:10:08,491 - INFO - Progress: 3/301 processed, 0 failed
+2025-10-23 21:10:08,492 - INFO - Time: 1m 47s elapsed, ~177m 41s remaining
+2025-10-23 21:10:10,493 - INFO - [4/301] Starting: 2021-10-13_23-17-41_CU_KjIiAl0J_3.jpg
+2025-10-23 21:10:10,493 - INFO - Processing: 2021-10-13_23-17-41_CU_KjIiAl0J_3.jpg
+2025-10-23 21:10:34,710 - INFO - ✅ Successfully processed: 2021-10-13_23-17-41_CU_KjIiAl0J_3.jpg
+2025-10-23 21:10:34,710 - INFO -   Generated: Sat13_01432_.png
+2025-10-23 21:10:34,710 - INFO - Creating comparison for 2021-10-13_23-17-41_CU_KjIiAl0J_3.jpg -> Sat13_01432_.png
+2025-10-23 21:10:34,814 - INFO - Created comparison: comparison_2021-10-13_23-17-41_CU_KjIiAl0J_3_Sat13_01432_.jpg
+2025-10-23 21:10:34,815 - INFO -   Comparison saved: comparison_2021-10-13_23-17-41_CU_KjIiAl0J_3_Sat13_01432_.jpg
+2025-10-23 21:10:34,816 - INFO - [4/301] ✅ Completed: 2021-10-13_23-17-41_CU_KjIiAl0J_3.jpg
+2025-10-23 21:10:34,816 - INFO - Progress: 4/301 processed, 0 failed
+2025-10-23 21:10:34,816 - INFO - Time: 2m 13s elapsed, ~165m 23s remaining
+2025-10-23 21:10:36,817 - INFO - [5/301] Starting: 2021-10-13_23-17-41_CU_KjIiAl0J_4.jpg
+2025-10-23 21:10:36,817 - INFO - Processing: 2021-10-13_23-17-41_CU_KjIiAl0J_4.jpg
+2025-10-23 21:10:46,480 - INFO - ⏹️  Processing interrupted by user
+2025-10-23 21:10:46,480 - INFO - 📊 Processing Summary:
+2025-10-23 21:10:46,480 - INFO -   Total images: 301
+2025-10-23 21:10:46,480 - INFO -   Successfully processed: 4
+2025-10-23 21:10:46,480 - INFO -   Failed: 0
+2025-10-23 21:10:46,480 - INFO -   Remaining: 297
+2025-10-23 21:10:46,480 - INFO -   Total time: 0h 2m 25s
